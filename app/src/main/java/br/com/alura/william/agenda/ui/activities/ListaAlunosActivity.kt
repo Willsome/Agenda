@@ -1,8 +1,9 @@
-package br.com.alura.william.agenda
+package br.com.alura.william.agenda.ui.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import br.com.alura.william.agenda.R
 import kotlinx.android.synthetic.main.activity_lista_alunos.*
 
 class ListaAlunosActivity : AppCompatActivity() {
