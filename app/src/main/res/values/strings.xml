@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Agenda</string>
+
+    <string name="formulario_et_nome"> Nome </string>
+    <string name="formulario_et_endereco"> Endereço </string>
+    <string name="formularioet_telefone"> Telefone </string>
+    <string name="formulario_site"> Site </string>
+    <string name="formulario_bt_salvar"> Salvar </string>
+
 </resources>
