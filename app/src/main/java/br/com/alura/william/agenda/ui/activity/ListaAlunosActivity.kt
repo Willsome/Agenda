@@ -1,10 +1,12 @@
-package br.com.alura.william.agenda.ui.activities
+package br.com.alura.william.agenda.ui.activity
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.ArrayAdapter
 import br.com.alura.william.agenda.R
+import br.com.alura.william.agenda.dao.AlunoDao
+import br.com.alura.william.agenda.model.Aluno
 import kotlinx.android.synthetic.main.activity_lista_alunos.*
 
 class ListaAlunosActivity : AppCompatActivity() {
@@ -13,16 +15,6 @@ class ListaAlunosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_alunos)
 
-        val alunos = arrayOf("William", "Victor", "Dennis", "Mariaelena")
-
-        val adapter = ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_list_item_1,
-                alunos
-        )
-
-        lv_lista_alunos.adapter = adapter
-
         bt_lista_alunos_novo_aluno.setOnClickListener {
             val vaiProFormulario = Intent(
                     this,
@@ -30,5 +22,22 @@ class ListaAlunosActivity : AppCompatActivity() {
             )
             startActivity(vaiProFormulario)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        carregaAlunos()
+    }
+
+    private fun carregaAlunos() {
+        val alunos = AlunoDao(this).buscaAlunos()
+
+        val adapter = ArrayAdapter<Aluno>(
+                this,
+                android.R.layout.simple_list_item_1,
+                alunos
+        )
+
+        lv_lista_alunos.adapter = adapter
     }
 }
