@@ -23,17 +23,6 @@ class AlunoDao(context: Context?) : SQLiteOpenHelper(context, "AndroidDb", null,
         writableDatabase.insert("Alunos", null, createContentValues(aluno))
     }
 
-    private fun createContentValues(aluno: Aluno): ContentValues {
-        val contentValues = ContentValues()
-        contentValues.put("id", aluno.id)
-        contentValues.put("nome", aluno.nome)
-        contentValues.put("endereco", aluno.endereco)
-        contentValues.put("telefone", aluno.telefone)
-        contentValues.put("site", aluno.site)
-        contentValues.put("nota", aluno.nota)
-        return contentValues
-    }
-
     fun buscaAlunos(): List<Aluno> {
 
         val sql = "SELECT * FROM Alunos;"
@@ -56,5 +45,26 @@ class AlunoDao(context: Context?) : SQLiteOpenHelper(context, "AndroidDb", null,
         cursor.close()
 
         return alunos
+    }
+
+    fun deleta(aluno: Aluno) {
+        val params = arrayOf(aluno.id.toString())
+        writableDatabase.delete("Alunos", "id = ?", params)
+    }
+
+    fun altera(aluno: Aluno) {
+        val params = arrayOf(aluno.id.toString())
+        writableDatabase.update("Alunos", createContentValues(aluno), "id = ?", params)
+    }
+
+    private fun createContentValues(aluno: Aluno): ContentValues {
+        val contentValues = ContentValues()
+        contentValues.put("id", aluno.id)
+        contentValues.put("nome", aluno.nome)
+        contentValues.put("endereco", aluno.endereco)
+        contentValues.put("telefone", aluno.telefone)
+        contentValues.put("site", aluno.site)
+        contentValues.put("nota", aluno.nota)
+        return contentValues
     }
 }

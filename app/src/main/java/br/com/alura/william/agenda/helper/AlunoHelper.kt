@@ -6,9 +6,9 @@ import kotlinx.android.synthetic.main.activity_formulario.*
 
 class AlunoHelper(val activity: FormularioActivity) {
 
-    fun pegaAluno(): Aluno {
+    var aluno: Aluno = Aluno()
 
-        val aluno = Aluno()
+    fun pegaAluno(): Aluno {
         aluno.nome = activity.et_formulario_nome.text.toString()
         aluno.endereco = activity.et_formulario_endereco.text.toString()
         aluno.telefone = activity.et_formulario_telefone.text.toString()
@@ -16,5 +16,15 @@ class AlunoHelper(val activity: FormularioActivity) {
         aluno.nota = activity.rb_formulario_nota.progress.toDouble()
 
         return aluno
+    }
+
+    fun preencheFormulario(aluno: Aluno) {
+        activity.et_formulario_nome.setText(aluno.nome)
+        activity.et_formulario_endereco.setText(aluno.endereco)
+        activity.et_formulario_telefone.setText(aluno.telefone)
+        activity.et_formulario_site.setText(aluno.site)
+        activity.rb_formulario_nota.progress = aluno.nota!!.toInt()
+
+        this.aluno = aluno
     }
 }
