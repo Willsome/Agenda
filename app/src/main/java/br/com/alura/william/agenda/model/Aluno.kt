@@ -1,6 +1,8 @@
 package br.com.alura.william.agenda.model
 
-class Aluno {
+import java.io.Serializable
+
+class Aluno : Serializable {
 
     var id: Long? = null
     var nome: String? = null

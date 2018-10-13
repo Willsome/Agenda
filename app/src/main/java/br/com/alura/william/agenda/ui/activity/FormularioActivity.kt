@@ -8,12 +8,22 @@ import android.widget.Toast
 import br.com.alura.william.agenda.R
 import br.com.alura.william.agenda.dao.AlunoDao
 import br.com.alura.william.agenda.helper.AlunoHelper
+import br.com.alura.william.agenda.model.Aluno
 
 class FormularioActivity : AppCompatActivity() {
+
+    lateinit var helper: AlunoHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_formulario)
+
+        helper = AlunoHelper(this)
+
+        val aluno = intent.getSerializableExtra("aluno") as Aluno?
+        if (aluno != null) {
+            helper.preencheFormulario(aluno)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -28,14 +38,23 @@ class FormularioActivity : AppCompatActivity() {
         when (item?.itemId) {
             R.id.menu_formulario_ok -> {
 
-                val aluno = AlunoHelper(this).pegaAluno()
-                AlunoDao(this).insere(aluno)
+                val aluno = helper.pegaAluno()
 
-                Toast.makeText(
-                        this,
-                        "Aluno adicionado !",
-                        Toast.LENGTH_SHORT
-                ).show()
+                if (aluno.id != null) {
+                    AlunoDao(this).altera(aluno)
+                    Toast.makeText(
+                            this,
+                            "Aluno alterado !",
+                            Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    AlunoDao(this).insere(aluno)
+                    Toast.makeText(
+                            this,
+                            "Aluno adicionado !",
+                            Toast.LENGTH_SHORT
+                    ).show()
+                }
 
                 finish()
             }
