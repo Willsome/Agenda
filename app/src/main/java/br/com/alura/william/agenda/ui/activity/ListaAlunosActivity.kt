@@ -1,6 +1,7 @@
 package br.com.alura.william.agenda.ui.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.ContextMenu
@@ -59,6 +60,54 @@ class ListaAlunosActivity : AppCompatActivity() {
         val info = menuInfo as AdapterView.AdapterContextMenuInfo
 
         val aluno = lv_lista_alunos.getItemAtPosition(info.position) as Aluno
+
+        val menuLigar = menu?.add("Ligar")
+        menuLigar?.setOnMenuItemClickListener(
+                MenuItem.OnMenuItemClickListener {
+
+                    //                    if(ActivityCompat.checkSelfPermission(
+//                                    this,
+//                                    android.Manifest.permission.CALL_PHONE)
+//                        != PackageManager.PERMISSION_GRANTED
+//                    ) {
+//                        ActivityCompat.requestPermissions(
+//                                this@ListaAlunosActivity,
+//                                arrayOf(android.Manifest.permission.CALL_PHONE),
+//                                69
+//                        )
+//
+//                    } else {
+//                        val intentLigar = Intent(Intent.ACTION_CALL)
+//                        intentLigar.data = Uri.parse("tel:" + aluno.telefone)
+//                        startActivity(intentLigar)
+//                    }
+
+                    val intentLigar = Intent(Intent.ACTION_CALL)
+                    intentLigar.data = Uri.parse("tel:" + aluno.telefone)
+                    startActivity(intentLigar)
+
+                    return@OnMenuItemClickListener false
+                }
+        )
+
+        val menuIrParaSite = menu?.add("Ir para Site")
+        val intentSite = Intent(Intent.ACTION_VIEW)
+        var site = aluno.site
+        if (!site!!.startsWith("http://")) {
+            site = "http://" + site
+        }
+        intentSite.data = Uri.parse(site)
+        menuIrParaSite?.intent = intentSite
+
+        val menuEnviarSMS = menu?.add("SMS")
+        val intentSMS = Intent(Intent.ACTION_VIEW)
+        intentSMS.data = Uri.parse("sms:" + aluno.telefone)
+        menuEnviarSMS?.intent = Intent(Intent.ACTION_VIEW)
+
+        val menuIrParaMapa = menu?.add("Vai Para Mapa")
+        val intentMapa = Intent(Intent.ACTION_VIEW)
+        intentMapa.data = Uri.parse("geo:0,0?z=14&q=" + aluno.endereco)
+        menuIrParaMapa?.intent = Intent(Intent.ACTION_VIEW)
 
         val menuDeletar = menu?.add("Deletar")
         menuDeletar?.setOnMenuItemClickListener(
