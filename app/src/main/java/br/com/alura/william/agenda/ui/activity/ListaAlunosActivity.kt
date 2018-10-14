@@ -8,8 +8,8 @@ import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import br.com.alura.william.agenda.R
+import br.com.alura.william.agenda.adapter.ListaAlunosAdapter
 import br.com.alura.william.agenda.dao.AlunoDao
 import br.com.alura.william.agenda.model.Aluno
 import kotlinx.android.synthetic.main.activity_lista_alunos.*
@@ -39,9 +39,8 @@ class ListaAlunosActivity : AppCompatActivity() {
     private fun carregaAlunos() {
         val alunos = AlunoDao(this).buscaAlunos()
 
-        val adapter = ArrayAdapter<Aluno>(
+        val adapter = ListaAlunosAdapter(
                 this,
-                android.R.layout.simple_list_item_1,
                 alunos
         )
 
