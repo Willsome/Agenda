@@ -6,17 +6,32 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import br.com.alura.william.agenda.model.Aluno
 
-class AlunoDao(context: Context?) : SQLiteOpenHelper(context, "AndroidDb", null, 1) {
+class AlunoDao(context: Context?) : SQLiteOpenHelper(context, "AndroidDb", null, 2) {
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val sql = "CREATE TABLE Alunos(id INTEGER PRIMARY KEY, nome TEXT NOT NULL, endereco TEXT, telefone TEXT, site TEXT, nota REAL);"
+        val sql = "CREATE TABLE Alunos(" +
+                "id INTEGER PRIMARY KEY," +
+                "nome TEXT NOT NULL," +
+                "endereco TEXT," +
+                "telefone TEXT," +
+                "site TEXT," +
+                "nota REAL," +
+                "caminhoFoto TEXT" +
+                ");"
         db?.execSQL(sql)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        val sql = "DROP TABLE IF EXISTS Alunos;"
+        /*val sql = "DROP TABLE IF EXISTS Alunos;"
         db?.execSQL(sql)
-        onCreate(db)
+        onCreate(db)*/
+        var sql = ""
+        when (oldVersion) {
+            1 -> {
+                sql = "ALTER TABLE Alunos ADD COLUMN caminhoFoto TEXT;"
+                db?.execSQL(sql)
+            }
+        }
     }
 
     fun insere(aluno: Aluno): Unit {
@@ -39,6 +54,7 @@ class AlunoDao(context: Context?) : SQLiteOpenHelper(context, "AndroidDb", null,
             aluno.telefone = cursor.getString(cursor.getColumnIndex("telefone"))
             aluno.site = cursor.getString(cursor.getColumnIndex("site"))
             aluno.nota = cursor.getDouble(cursor.getColumnIndex("nota"))
+            aluno.caminhoFoto = cursor.getString(cursor.getColumnIndex("caminhoFoto"))
 
             alunos.add(aluno)
         }
@@ -65,6 +81,7 @@ class AlunoDao(context: Context?) : SQLiteOpenHelper(context, "AndroidDb", null,
         contentValues.put("telefone", aluno.telefone)
         contentValues.put("site", aluno.site)
         contentValues.put("nota", aluno.nota)
+        contentValues.put("caminhoFoto", aluno.caminhoFoto)
         return contentValues
     }
 }
