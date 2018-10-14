@@ -10,6 +10,7 @@ class Aluno : Serializable {
     var telefone: String? = null
     var site: String? = null
     var nota: Double? = null
+    var caminhoFoto: String? = null
 
     override fun toString(): String {
         return "${id} - ${nome}"
