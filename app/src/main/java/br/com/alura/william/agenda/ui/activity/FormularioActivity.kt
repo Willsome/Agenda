@@ -5,10 +5,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import br.com.alura.william.agenda.BuildConfig
 import br.com.alura.william.agenda.R
 import br.com.alura.william.agenda.dao.AlunoDao
 import br.com.alura.william.agenda.helper.AlunoHelper
@@ -39,15 +41,15 @@ class FormularioActivity : AppCompatActivity() {
             caminhoFoto = getExternalFilesDir(null)!!.toString() + "/" + System.currentTimeMillis() + ".jpg"
             val arquivoFoto = File(caminhoFoto)
             val intentTiraFoto = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            intentTiraFoto.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(arquivoFoto)) // Android < 7
-            /*intentTiraFoto.putExtra(
+//            intentTiraFoto.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(arquivoFoto)) // Android < 7
+            intentTiraFoto.putExtra(
                     MediaStore.EXTRA_OUTPUT,
                     FileProvider.getUriForFile(
                             this,
                             BuildConfig.APPLICATION_ID + ".provider",
                             arquivoFoto
                     )
-            )*/
+            )
             startActivityForResult(intentTiraFoto, CODIGO_CAMERA_INTENT_RESULT)
         }
     }

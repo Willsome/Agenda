@@ -84,26 +84,26 @@ class ListaAlunosActivity : AppCompatActivity() {
         menuLigar?.setOnMenuItemClickListener(
                 MenuItem.OnMenuItemClickListener {
 
-                    //                    if(ActivityCompat.checkSelfPermission(
-//                                    this,
-//                                    android.Manifest.permission.CALL_PHONE)
-//                        != PackageManager.PERMISSION_GRANTED
-//                    ) {
-//                        ActivityCompat.requestPermissions(
-//                                this@ListaAlunosActivity,
-//                                arrayOf(android.Manifest.permission.CALL_PHONE),
-//                                69
-//                        )
-//
-//                    } else {
-//                        val intentLigar = Intent(Intent.ACTION_CALL)
-//                        intentLigar.data = Uri.parse("tel:" + aluno.telefone)
-//                        startActivity(intentLigar)
-//                    }
+                    if (ActivityCompat.checkSelfPermission(
+                                    this,
+                                    android.Manifest.permission.CALL_PHONE)
+                            != PackageManager.PERMISSION_GRANTED
+                    ) {
+                        ActivityCompat.requestPermissions(
+                                this@ListaAlunosActivity,
+                                arrayOf(android.Manifest.permission.CALL_PHONE),
+                                69
+                        )
 
-                    val intentLigar = Intent(Intent.ACTION_CALL)
+                    } else {
+                        val intentLigar = Intent(Intent.ACTION_CALL)
+                        intentLigar.data = Uri.parse("tel:" + aluno.telefone)
+                        startActivity(intentLigar)
+                    }
+
+                    /*val intentLigar = Intent(Intent.ACTION_CALL)
                     intentLigar.data = Uri.parse("tel:" + aluno.telefone)
-                    startActivity(intentLigar)
+                    startActivity(intentLigar)*/
 
                     return@OnMenuItemClickListener false
                 }
