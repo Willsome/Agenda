@@ -15,6 +15,8 @@ import android.widget.AdapterView
 import br.com.alura.william.agenda.R
 import br.com.alura.william.agenda.adapter.ListaAlunosAdapter
 import br.com.alura.william.agenda.dao.AlunoDao
+import br.com.alura.william.agenda.maps.MapaActivity
+import br.com.alura.william.agenda.maps.MapsActivity
 import br.com.alura.william.agenda.model.Aluno
 import kotlinx.android.synthetic.main.activity_lista_alunos.*
 
@@ -150,6 +152,10 @@ class ListaAlunosActivity : AppCompatActivity() {
         when (item?.itemId) {
             R.id.menu_lista_alunos_baixar_provas -> {
                 startActivity(Intent(this, ProvasActivity::class.java))
+            }
+
+            R.id.menu_lista_alunos_mapa -> {
+                startActivity(Intent(this, MapaActivity::class.java))
             }
         }
 
