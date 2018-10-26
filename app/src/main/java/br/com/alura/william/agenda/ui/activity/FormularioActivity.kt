@@ -2,7 +2,6 @@ package br.com.alura.william.agenda.ui.activity
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
@@ -68,7 +67,7 @@ class FormularioActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         when (item?.itemId) {
-            R.id.menu_formulario_ok -> {
+            R.id.menu_formulario_salvar -> {
 
                 val aluno = helper.pegaAluno()
 

@@ -6,5 +6,7 @@
     <string name="formulario_et_endereco"> Address </string>
     <string name="formularioet_telefone"> Phone </string>
     <string name="formulario_site"> Site </string>
-    <string name="formulario_bt_salvar"> Save </string>
+    <string name="formulario_menu_salvar"> Save </string>
+    <string name="lista_alunos_menu_baixar_provas"> Download exams </string>
+
 </resources>
