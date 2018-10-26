@@ -5,7 +5,7 @@
     <item
         android:id="@+id/menu_formulario_ok"
         android:icon="@drawable/ic_confirmar"
-        android:title="Ok"
+        android:title="@string/formulario_bt_salvar"
         app:showAsAction="always" />
 
 </menu>

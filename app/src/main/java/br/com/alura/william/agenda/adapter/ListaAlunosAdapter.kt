@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
-import android.widget.TextView
 import br.com.alura.william.agenda.R
 import br.com.alura.william.agenda.model.Aluno
+import kotlinx.android.synthetic.main.layout_adapter_lista_alunos.view.*
 
 class ListaAlunosAdapter(
         var context: Context,
@@ -29,13 +29,18 @@ class ListaAlunosAdapter(
         if (caminhoFoto != null) {
             val bitmap = BitmapFactory.decodeFile(caminhoFoto)
             val bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 150, 150, true)
-            view?.findViewById<ImageView>(R.id.iv_lista_aluno_adapter_foto)?.setImageBitmap(bitmapReduzido)
-            view?.findViewById<ImageView>(R.id.iv_lista_aluno_adapter_foto)?.setTag(caminhoFoto)
-            view?.findViewById<ImageView>(R.id.iv_lista_aluno_adapter_foto)?.scaleType = ImageView.ScaleType.FIT_XY
+            view?.iv_lista_aluno_adapter_foto?.setImageBitmap(bitmapReduzido)
+            view?.iv_lista_aluno_adapter_foto?.setTag(caminhoFoto)
+            view?.iv_lista_aluno_adapter_foto?.scaleType = ImageView.ScaleType.FIT_XY
         }
 
-        view?.findViewById<TextView>(R.id.tv_lista_aluno_adapter_nome)?.text = alunos[position].nome
-        view?.findViewById<TextView>(R.id.tv_lista_aluno_adapter_telefone)?.text = alunos[position].telefone
+        view?.tv_lista_aluno_adapter_nome?.text = alunos[position].nome
+        view?.tv_lista_aluno_adapter_telefone?.text = alunos[position].telefone
+
+        if (view?.tv_lista_aluno_adapter_endereco != null && view.tv_lista_aluno_adapter_site != null) {
+            view.tv_lista_aluno_adapter_endereco?.text = alunos[position].endereco
+            view.tv_lista_aluno_adapter_site?.text = alunos[position].site
+        }
 
         return view!!
     }

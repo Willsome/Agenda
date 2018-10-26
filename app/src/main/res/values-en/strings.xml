@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Contacts</string>
+
+    <string name="formulario_et_nome"> Name </string>
+    <string name="formulario_et_endereco"> Address </string>
+    <string name="formularioet_telefone"> Phone </string>
+    <string name="formulario_site"> Site </string>
+    <string name="formulario_bt_salvar"> Save </string>
+</resources>
