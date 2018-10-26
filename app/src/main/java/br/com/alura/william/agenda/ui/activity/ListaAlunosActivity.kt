@@ -1,8 +1,11 @@
 package br.com.alura.william.agenda.ui.activity
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.ContextMenu
 import android.view.MenuItem
@@ -16,9 +19,13 @@ import kotlinx.android.synthetic.main.activity_lista_alunos.*
 
 class ListaAlunosActivity : AppCompatActivity() {
 
+    val CODIGO_PERMISSAO_SMS = 312
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_alunos)
+
+        pegaPermissaoSMS()
 
         registerForContextMenu(lv_lista_alunos)
 
@@ -28,6 +35,19 @@ class ListaAlunosActivity : AppCompatActivity() {
                     FormularioActivity::class.java
             )
             startActivity(vaiProFormulario)
+        }
+    }
+
+    private fun pegaPermissaoSMS() {
+        if (ActivityCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(
+                    this@ListaAlunosActivity,
+                    arrayOf(Manifest.permission.RECEIVE_SMS),
+                    CODIGO_PERMISSAO_SMS
+            )
         }
     }
 
@@ -64,26 +84,26 @@ class ListaAlunosActivity : AppCompatActivity() {
         menuLigar?.setOnMenuItemClickListener(
                 MenuItem.OnMenuItemClickListener {
 
-                    //                    if(ActivityCompat.checkSelfPermission(
-//                                    this,
-//                                    android.Manifest.permission.CALL_PHONE)
-//                        != PackageManager.PERMISSION_GRANTED
-//                    ) {
-//                        ActivityCompat.requestPermissions(
-//                                this@ListaAlunosActivity,
-//                                arrayOf(android.Manifest.permission.CALL_PHONE),
-//                                69
-//                        )
-//
-//                    } else {
-//                        val intentLigar = Intent(Intent.ACTION_CALL)
-//                        intentLigar.data = Uri.parse("tel:" + aluno.telefone)
-//                        startActivity(intentLigar)
-//                    }
+                    if (ActivityCompat.checkSelfPermission(
+                                    this,
+                                    android.Manifest.permission.CALL_PHONE)
+                            != PackageManager.PERMISSION_GRANTED
+                    ) {
+                        ActivityCompat.requestPermissions(
+                                this@ListaAlunosActivity,
+                                arrayOf(android.Manifest.permission.CALL_PHONE),
+                                69
+                        )
 
-                    val intentLigar = Intent(Intent.ACTION_CALL)
+                    } else {
+                        val intentLigar = Intent(Intent.ACTION_CALL)
+                        intentLigar.data = Uri.parse("tel:" + aluno.telefone)
+                        startActivity(intentLigar)
+                    }
+
+                    /*val intentLigar = Intent(Intent.ACTION_CALL)
                     intentLigar.data = Uri.parse("tel:" + aluno.telefone)
-                    startActivity(intentLigar)
+                    startActivity(intentLigar)*/
 
                     return@OnMenuItemClickListener false
                 }

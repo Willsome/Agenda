@@ -6,6 +6,6 @@
     <string name="formularioet_telefone"> Telefone </string>
     <string name="formulario_site"> Site </string>
     <string name="formulario_bt_salvar"> Salvar </string>
-    <string name="lista_alunos_bt_adicionar">+</string>
+    <string name="lista_alunos_bt_adicionar" translatable="false">+</string>
 
 </resources>

@@ -84,4 +84,12 @@ class AlunoDao(context: Context?) : SQLiteOpenHelper(context, "AndroidDb", null,
         contentValues.put("caminhoFoto", aluno.caminhoFoto)
         return contentValues
     }
+
+    fun isAluno(telefone: String): Boolean {
+        val sql = "SELECT * FROM Alunos WHERE telefone = ?;"
+        val cursor = readableDatabase.rawQuery(sql, arrayOf(telefone))
+        val resultado = cursor.count
+        cursor.close()
+        return resultado > 0;
+    }
 }
