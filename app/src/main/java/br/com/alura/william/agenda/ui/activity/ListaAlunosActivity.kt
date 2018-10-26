@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.ContextMenu
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -19,7 +20,8 @@ import kotlinx.android.synthetic.main.activity_lista_alunos.*
 
 class ListaAlunosActivity : AppCompatActivity() {
 
-    val CODIGO_PERMISSAO_SMS = 312
+    private val CODIGO_PERMISSAO_SMS = 312
+    private val CODIGO_PERMISSAO_LIGACAO = 69
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,7 +94,7 @@ class ListaAlunosActivity : AppCompatActivity() {
                         ActivityCompat.requestPermissions(
                                 this@ListaAlunosActivity,
                                 arrayOf(android.Manifest.permission.CALL_PHONE),
-                                69
+                                CODIGO_PERMISSAO_LIGACAO
                         )
 
                     } else {
@@ -113,7 +115,7 @@ class ListaAlunosActivity : AppCompatActivity() {
         val intentSite = Intent(Intent.ACTION_VIEW)
         var site = aluno.site
         if (!site!!.startsWith("http://")) {
-            site = "http://" + site
+            site = "http://$site"
         }
         intentSite.data = Uri.parse(site)
         menuIrParaSite?.intent = intentSite
@@ -136,5 +138,21 @@ class ListaAlunosActivity : AppCompatActivity() {
                     return@OnMenuItemClickListener false
                 }
         )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_lista_alunos, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        when (item?.itemId) {
+            R.id.menu_lista_alunos_baixar_provas -> {
+                startActivity(Intent(this, ProvasActivity::class.java))
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }
