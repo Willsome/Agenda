@@ -8,5 +8,9 @@
     <string name="formulario_site"> Site </string>
     <string name="formulario_menu_salvar"> Save </string>
     <string name="lista_alunos_menu_baixar_provas"> Download exams </string>
+    <string name="lista_alunos_menu_mapa"> Open map </string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps"> Contacts on Map </string>
 
 </resources>

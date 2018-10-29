@@ -5,7 +5,13 @@
     <item
         android:id="@+id/menu_lista_alunos_baixar_provas"
         android:icon="@drawable/ic_receber"
-        android:title="@string/formulario_menu_salvar"
+        android:title="@string/lista_alunos_menu_baixar_provas"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_lista_alunos_mapa"
+        android:icon="@drawable/ic_mapa"
+        android:title="@string/lista_alunos_menu_mapa"
         app:showAsAction="always" />
 
 </menu>
