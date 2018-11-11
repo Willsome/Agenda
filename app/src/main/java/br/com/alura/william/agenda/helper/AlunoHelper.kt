@@ -1,10 +1,10 @@
 package br.com.alura.william.agenda.helper
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.widget.ImageView
 import br.com.alura.william.agenda.model.Aluno
 import br.com.alura.william.agenda.ui.activity.FormularioActivity
+import br.com.alura.william.agenda.utils.CarregadorDeFoto
 import kotlinx.android.synthetic.main.activity_formulario.*
 
 class AlunoHelper(val activity: FormularioActivity) {
@@ -35,10 +35,11 @@ class AlunoHelper(val activity: FormularioActivity) {
 
     fun carregaFoto(caminhoFoto: String?) {
         if (caminhoFoto != null) {
-            val bitmap = BitmapFactory.decodeFile(caminhoFoto)
+//            val bitmap = BitmapFactory.decodeFile(caminhoFoto)
+            val bitmap = CarregadorDeFoto().carregaBitmap(caminhoFoto)
             val bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 150, 150, true)
             activity.iv_formulario_foto.setImageBitmap(bitmapReduzido)
-            activity.iv_formulario_foto.setTag(caminhoFoto)
+            activity.iv_formulario_foto.tag = caminhoFoto
             activity.iv_formulario_foto.scaleType = ImageView.ScaleType.FIT_XY
         }
     }
