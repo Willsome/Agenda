@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import br.com.alura.william.agenda.R
@@ -138,8 +139,17 @@ class ListaAlunosActivity : AppCompatActivity() {
         val menuDeletar = menu?.add("Deletar")
         menuDeletar?.setOnMenuItemClickListener(
                 MenuItem.OnMenuItemClickListener {
-                    AlunoDao(this).deleta(aluno)
-                    carregaAlunos()
+                    AlertDialog.Builder(this@ListaAlunosActivity)
+                            .setTitle("Deletando aluno")
+                            .setMessage("Tem certeza que deseja deletar este aluno ?")
+                            .setPositiveButton("sim") {
+                                dialogInterface, i ->
+                                AlunoDao(this).deleta(aluno)
+                                carregaAlunos()
+                            }
+                            .setNegativeButton("não", null)
+                            .show()
+
                     return@OnMenuItemClickListener false
                 }
         )
