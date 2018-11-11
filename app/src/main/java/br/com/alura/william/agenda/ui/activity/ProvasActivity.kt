@@ -1,7 +1,7 @@
 package br.com.alura.william.agenda.ui.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import br.com.alura.william.agenda.R
 import br.com.alura.william.agenda.model.Prova
 import br.com.alura.william.agenda.ui.fragments.DetalhesProvaFragment

@@ -1,9 +1,8 @@
 package br.com.alura.william.agenda.ui.activity
 
-import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import br.com.alura.william.agenda.R
 import br.com.alura.william.agenda.model.Prova
 import kotlinx.android.synthetic.main.activity_detalhes_prova.*

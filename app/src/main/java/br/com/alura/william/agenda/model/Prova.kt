@@ -2,7 +2,7 @@ package br.com.alura.william.agenda.model
 
 import java.io.Serializable
 
-class Prova (
+class Prova(
         var materia: String,
         var data: String,
         var topicos: List<String>
