@@ -13,6 +13,8 @@ import java.io.IOException
 
 class MapaFragment : SupportMapFragment(), OnMapReadyCallback {
 
+    private var googleMaps: GoogleMap? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getMapAsync(this)
@@ -20,8 +22,12 @@ class MapaFragment : SupportMapFragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMaps: GoogleMap?) {
 
-        val endereco = pegaCoordenadaDoEndereco("Rua Vergueiro 3185, Vila Mariana, São Paulo")
-        val update = CameraUpdateFactory.newLatLngZoom(endereco, 17F)
+        this.googleMaps = googleMaps!!
+
+        val posicao = pegaCoordenadaDoEndereco("Rua Vergueiro 3185, Vila Mariana, São Paulo")
+        if (posicao != null) {
+            centralizaEm(posicao)
+        }
 
         val dao = AlunoDao(context)
         val alunos = dao.buscaAlunos()
@@ -32,12 +38,19 @@ class MapaFragment : SupportMapFragment(), OnMapReadyCallback {
                 marcador.position(coordenada)
                 marcador.title(aluno.nome)
                 marcador.snippet(aluno.nota.toString())
-                googleMaps!!.addMarker(marcador)
+                googleMaps.addMarker(marcador)
             }
         }
         dao.close()
 
-        googleMaps!!.moveCamera(update)
+        Localizador(context!!, googleMaps)
+    }
+
+    fun centralizaEm(coordenada: LatLng) {
+        if (googleMaps != null) {
+            val update = CameraUpdateFactory.newLatLngZoom(coordenada, 17F)
+            googleMaps!!.moveCamera(update)
+        }
     }
 
     private fun pegaCoordenadaDoEndereco(endereco: String?): LatLng? {
