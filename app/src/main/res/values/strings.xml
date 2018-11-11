@@ -7,12 +7,12 @@
     <string name="formularioet_telefone"> Telefone </string>
     <string name="formulario_site"> Site </string>
     <string name="formulario_menu_salvar"> Salvar </string>
+    <string name="lista_alunos_menu_enviar_notas"> Enviar notas </string>
     <string name="lista_alunos_menu_baixar_provas"> Baixar provas </string>
     <string name="lista_alunos_menu_mapa"> Abrir mapa </string>
     <string name="lista_alunos_bt_adicionar" translatable="false">+</string>
 
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="title_activity_maps" tools:ignore="ExtraTranslation">Alunos no Mapa</string>
 
 </resources>

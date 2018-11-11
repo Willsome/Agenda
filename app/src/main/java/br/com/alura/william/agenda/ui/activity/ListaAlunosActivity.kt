@@ -4,20 +4,23 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v7.app.AppCompatActivity
 import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import br.com.alura.william.agenda.R
 import br.com.alura.william.agenda.adapter.ListaAlunosAdapter
 import br.com.alura.william.agenda.dao.AlunoDao
 import br.com.alura.william.agenda.maps.MapaActivity
-import br.com.alura.william.agenda.maps.MapsActivity
 import br.com.alura.william.agenda.model.Aluno
+import br.com.alura.william.agenda.utils.AlunoConverter
+import br.com.alura.william.agenda.web.WebClient
 import kotlinx.android.synthetic.main.activity_lista_alunos.*
 
 class ListaAlunosActivity : AppCompatActivity() {
@@ -150,6 +153,11 @@ class ListaAlunosActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         when (item?.itemId) {
+
+            R.id.menu_lista_alunos_enviar_notas -> {
+                ListaAlunosTask().execute()
+            }
+
             R.id.menu_lista_alunos_baixar_provas -> {
                 startActivity(Intent(this, ProvasActivity::class.java))
             }
@@ -160,5 +168,33 @@ class ListaAlunosActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private inner class ListaAlunosTask : AsyncTask<Void, Void, Any>() {
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+            pbListaAlunos.visibility = View.VISIBLE
+        }
+
+        override fun doInBackground(vararg p0: Void?): Any {
+            val dao = AlunoDao(this@ListaAlunosActivity)
+            val alunos = dao.buscaAlunos()
+            dao.close()
+            val json = AlunoConverter().toJSON(alunos)
+            val resposta = WebClient().post(json)
+
+            return resposta
+        }
+
+        override fun onPostExecute(resposta: Any?) {
+            super.onPostExecute(resposta)
+            pbListaAlunos.visibility = View.GONE
+            Toast.makeText(
+                    this@ListaAlunosActivity,
+                    resposta as String,
+                    Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }
