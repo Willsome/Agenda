@@ -2,7 +2,6 @@ package br.com.alura.william.agenda.adapter
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import br.com.alura.william.agenda.R
 import br.com.alura.william.agenda.model.Aluno
+import br.com.alura.william.agenda.utils.CarregadorDeFoto
 import kotlinx.android.synthetic.main.layout_adapter_lista_alunos.view.*
 
 class ListaAlunosAdapter(
@@ -27,10 +27,11 @@ class ListaAlunosAdapter(
 
         val caminhoFoto = alunos[position].caminhoFoto
         if (caminhoFoto != null) {
-            val bitmap = BitmapFactory.decodeFile(caminhoFoto)
+//            val bitmap = BitmapFactory.decodeFile(caminhoFoto)
+            val bitmap = CarregadorDeFoto().carregaBitmap(caminhoFoto)
             val bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 150, 150, true)
             view?.iv_lista_aluno_adapter_foto?.setImageBitmap(bitmapReduzido)
-            view?.iv_lista_aluno_adapter_foto?.setTag(caminhoFoto)
+            view?.iv_lista_aluno_adapter_foto?.tag = caminhoFoto
             view?.iv_lista_aluno_adapter_foto?.scaleType = ImageView.ScaleType.FIT_XY
         }
 
